@@ -12,6 +12,7 @@ spring:
   jpa:
     hibernate:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      ddl-auto: create
 
 # Use spring.jpa.properties.* for Hibernate native properties (the prefix is
 # stripped before adding them to the entity manager)
@@ -26,6 +27,6 @@ spring:
           useUnicode: true
         hbm2ddl:
           import_files: db_scripts/import.sql
-        ddl-auto: create
+          
 # Show or not log for each sql query
     show-sql: true
