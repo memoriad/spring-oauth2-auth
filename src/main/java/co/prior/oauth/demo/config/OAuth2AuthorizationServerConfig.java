@@ -84,5 +84,5 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     public PasswordEncoder userPasswordEncoder() {
         return new BCryptPasswordEncoder(4);
     }
-
+    
 }

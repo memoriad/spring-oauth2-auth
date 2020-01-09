@@ -1,8 +1,16 @@
 server:
-  port: 8095
+  port: 8443
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keystore/gfmis.p12
+    key-store-password: password
+    key-alias: gfmis
+    enabled: true
 
 # Dev
 spring:
+  thymeleaf:
+    cache: false
   datasource:
     url: jdbc:mysql://localhost:3306/oauth2_jwt?createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: user1
@@ -12,7 +20,7 @@ spring:
   jpa:
     hibernate:
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-      ddl-auto: create
+      ddl-auto: create-drop
 
 # Use spring.jpa.properties.* for Hibernate native properties (the prefix is
 # stripped before adding them to the entity manager)
@@ -30,3 +38,38 @@ spring:
           
 # Show or not log for each sql query
     show-sql: true
+
+# WSO2 OAuth
+wso2:
+  oauth2:
+    client:
+      registration:
+#        client-id: cAy4uRTgz_JBpT0PAmYxEmqseXga
+        client-id: VXyxPFGeyhDZ3KODAgKcIFMwrmAa
+#        client-secret: NRAZeYNdXz6seTP8Vl92c1hpl3Ea
+        client-secret: UaY9hI_XJdPpwu2MSkONJw6gVDsa
+        redirect-uri: https://localhost:8443/oauth/code/wso2
+        scope: openid profile email address phone
+      provider:
+#        base-uri: https://localhost:9443
+        base-uri: https://10.220.12.100:8443
+        authorization-uri: ${wso2.oauth2.client.provider.base-uri}/oauth2/authorize
+        token-uri: ${wso2.oauth2.client.provider.base-uri}/oauth2/token
+        user-info-uri: ${wso2.oauth2.client.provider.base-uri}/oauth2/userinfo
+        jwk-set-uri: ${wso2.oauth2.client.provider.base-uri}/oauth2/jwks
+      endpoint: ${wso2.oauth2.client.provider.authorization-uri}?response_type=code&client_id=${wso2.oauth2.client.registration.client-id}&redirect_uri=${wso2.oauth2.client.registration.redirect-uri}&scope=${wso2.oauth2.client.registration.scope}
+
+  tls:
+#    rootPath: /Users/priorsolution/Desktop/self-key
+    rootPath: /Users/priorsolution/Desktop/wso2-truststore
+    trustStorePath: ${wso2.tls.rootPath}/client-truststore.jks
+    trustStorePassword: wso2carbon
+    keyStorePath: ${wso2.tls.rootPath}/wso2carbon.jks
+    keyStorePassword: wso2carbon
+    defaultType: JKS
+    
+jasperserver:
+  rest:
+    login:
+      endpoint: http://localhost:8080/jasperserver/rest_v2/login
+   

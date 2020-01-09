@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
+@Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsConfigFilter implements Filter {
 
@@ -23,7 +25,7 @@ public class CorsConfigFilter implements Filter {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, authorization");
+        response.setHeader("Access-Control-Allow-Headers", "*");
 
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);

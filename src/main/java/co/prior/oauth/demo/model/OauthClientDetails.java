@@ -52,8 +52,8 @@ public class OauthClientDetails {
 	@Column(name="additional_information", length=4096)
 	private String additionalInformation;
 	
-	@Column(name="autoapprove", columnDefinition = "TINYINT(4)")
-	private Integer autoapprove;
+	@Column(name="autoapprove")
+	private String autoapprove;
 	
 	@Column(name="uuid")
 	private String uuid;
@@ -169,11 +169,11 @@ public class OauthClientDetails {
 		this.additionalInformation = additionalInformation;
 	}
 
-	public Integer getAutoapprove() {
+	public String getAutoapprove() {
 		return autoapprove;
 	}
 
-	public void setAutoapprove(Integer autoapprove) {
+	public void setAutoapprove(String autoapprove) {
 		this.autoapprove = autoapprove;
 	}
 
